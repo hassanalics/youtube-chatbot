@@ -25,15 +25,19 @@ if not video_id:
     st.stop()
 
 # Proxy config
-proxies = {
-    "http": "http://ab1ff93281556f2305ebc82c384d736f:@proxy-server.scraperapi.com:8001",
-    "https": "http://ab1ff93281556f2305ebc82c384d736f:@proxy-server.scraperapi.com:8001"
+# proxies = {
+#     "http": "http://ab1ff93281556f2305ebc82c384d736f:@proxy-server.scraperapi.com:8001",
+#     "https": "http://ab1ff93281556f2305ebc82c384d736f:@proxy-server.scraperapi.com:8001"
+# }
+proxies={
+        "https": "https://8239dacb8ea646b9bf9466ff97039c4b:@api.zyte.com:8014"
+        # for scheme in ("http", "https")
 }
 
 @st.cache_data(show_spinner="Loading transcript...")
 def get_transcript(video_id):
     try:
-        transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=["en"], proxies=proxies)
+        transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=["en"], proxies=proxies   )
         return " ".join(chunk["text"] for chunk in transcript_list)
     except TranscriptsDisabled:
         return None
