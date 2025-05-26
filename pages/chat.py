@@ -7,8 +7,13 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
+import os
 
-load_dotenv()
+# Load token from secrets
+hf_token = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
+
+# Optional: set it as environment variable (if required by a library)
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_token
 
 st.header("Youtube Chatbot")
 
