@@ -1,0 +1,24 @@
+# LangChain Core
+langchain
+langchain-core
+
+# Hugging Face Integration
+langchain-huggingface
+transformers
+huggingface-hub
+
+# Environment Variable Management
+python-dotenv
+
+# server
+streamlit
+
+# For Printing Chain Graph
+grandalf
+
+# For Loader
+langchain_community
+
+youtube-transcript-api
+faiss-cpu
+tiktoken
