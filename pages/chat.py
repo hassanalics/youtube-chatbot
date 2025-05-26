@@ -1,6 +1,7 @@
 import streamlit as st
 from dotenv import load_dotenv
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled
+from youtube_transcript_api.proxies import WebshareProxyConfig
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint, HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -24,20 +25,16 @@ if not video_id:
     st.error("No video ID provided.")
     st.stop()
 
-# Proxy config
-# proxies = {
-#     "http": "http://ab1ff93281556f2305ebc82c384d736f:@proxy-server.scraperapi.com:8001",
-#     "https": "http://ab1ff93281556f2305ebc82c384d736f:@proxy-server.scraperapi.com:8001"
-# }
-proxies={
-        "https": "https://8239dacb8ea646b9bf9466ff97039c4b:@api.zyte.com:8014"
-        # for scheme in ("http", "https")
-}
-
 @st.cache_data(show_spinner="Loading transcript...")
 def get_transcript(video_id):
     try:
-        transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=["en"], proxies=proxies   )
+        ytt_api = YouTubeTranscriptApi(
+            proxy_config=WebshareProxyConfig(
+                proxy_username="naoytmon",
+                proxy_password="xa2nsa8zv69w",
+            )
+        )
+        transcript_list = ytt_api.get_transcript(video_id, languages=["en"])
         return " ".join(chunk["text"] for chunk in transcript_list)
     except TranscriptsDisabled:
         return None
