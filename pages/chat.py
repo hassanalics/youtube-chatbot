@@ -30,8 +30,8 @@ def get_transcript(video_id):
     try:
         ytt_api = YouTubeTranscriptApi(
             proxy_config=WebshareProxyConfig(
-                proxy_username="naoytmon",
-                proxy_password="xa2nsa8zv69w",
+                proxy_username=st.secrets["PROXY_USERNAME"],
+                proxy_password=st.secrets["PROXY_PASSWORD"],
             )
         )
         transcript_list = ytt_api.get_transcript(video_id, languages=["en"])
